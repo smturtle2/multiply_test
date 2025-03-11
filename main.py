@@ -1,19 +1,18 @@
 import time
 
 def multiply_1(a: int, b: int):
-    i = []
+    d = 0
     while b > 1:
         c = b
         j = 0
         while c > 1:
             c = c >> 1
             j += 1
-        i.append(j)
+        d += a << j
         b = b - (1 << j)
     if b == 1:
-        i.append(0)
-    shifted = [a << x for x in i]
-    return sum(shifted)
+        d += a << 1
+    return d
 
 def multiply_2(a: int, b: int):
     c = 0
@@ -21,7 +20,10 @@ def multiply_2(a: int, b: int):
         c += a
     return c
 
+a, b = 423524434, 130493446
 start = time.time()
-print(multiply_1(423524434, 423524434), time.time() - start, 'sec')
+print(f'{a * b} | {time.time() - start:.4e} sec')
 start = time.time()
-print(multiply_2(423524434, 423524434), time.time() - start, 'sec')
+print(f'{multiply_1(a, b)} | {time.time() - start:.4e} sec')
+start = time.time()
+print(f'{multiply_2(a, b)} | {time.time() - start:.4e} sec')
